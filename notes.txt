@@ -1,0 +1,19 @@
+		GIT.
+Building out 'git'. This is one of the coding challenges provided by Codecrafters.
+
+Difficulty Level: I'd say beginner in terms of code complexity but it's a good project for understanding git.
+
+It has 7 steps:
+1. Initializing the '.git' directory.
+
+2. Reading a blob object.
+
+3. creating a blob object.
+
+4. Reading a tree object.
+
+5. Writing a tree object
+
+6. Creating a commit.
+
+7. Cloning a repository

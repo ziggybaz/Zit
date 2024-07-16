@@ -1,12 +1,17 @@
 		GIT.
 Building out 'git'. This is one of the coding challenges provided by Codecrafters.
 
-Difficulty Level: I'd say beginner in terms of code complexity but it's a good project for understanding git.
+Difficulty Level: I'd say beginner in terms of code complexity but it's a good project for understanding git. If you do research it takes a bit of time to complete but if you're in it just to complete the challenge then an hour or 
+two is enough.
 
 It has 7 steps:
 1. Initializing the '.git' directory.
+Entails creating the '.git' directory an dpopulating all itls initialization files and folders.
+Upon initialization, git directory contains the following {1.objects/contains git objects 2.refs/contains git references 3.HEAD/contains a reference to current branch}
+Implementing it is easy as the only logic is the check the cli commands entered and from that create the directories and folders and store them on local disk. step achieved using (args, env, fs).
 
 2. Reading a blob object.
+
 
 3. creating a blob object.
 

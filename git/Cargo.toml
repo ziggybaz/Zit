@@ -2,6 +2,8 @@
 name = "git"
 version = "0.1.0"
 edition = "2021"
+author = "ZiggyBaz"
 
 [dependencies]
 flate2 = "1.0"
+sha1 = "0.10.1"

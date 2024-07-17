@@ -6,14 +6,23 @@ two is enough.
 
 It has 7 steps:
 1. Initializing the '.git' directory.
-Entails creating the '.git' directory an dpopulating all itls initialization files and folders.
+Entails creating the '.git' directory and populating all its initialization files and folders.
 Upon initialization, git directory contains the following {1.objects/contains git objects 2.refs/contains git references 3.HEAD/contains a reference to current branch}
-Implementing it is easy as the only logic is the check the cli commands entered and from that create the directories and folders and store them on local disk. step achieved using (args, env, fs).
+Implementing it is easy as the only logic is to check the cli commands entered and from that create the directories and folders and store them on local disk. step achieved using (args, env, fs).
+
+***
+Git Objects.
+Git is a "content-addressed filesystem" meaning the names of files as stored by git are mathematically derived from their contents
+So, Objects are files in the git repo whose paths are determined by their contents.
 
 2. Reading a blob object.
-
+to achieve this, you need to write out the logic for "git cat-file".
+"cat-file" is a 'plumbing' cmd used to print out existing git objects to stdout.
+Doing it: remember git stores files using SHA-1 hash, so once you know the hash you just decompress the file using zlib and voila you have the data.
 
 3. creating a blob object.
+you use the "hash-object" plumbing cmd together with the '-w' flag which indicates tou write it to the '.git/objects/{}/{}' file.
+as mentioned above, a blob object has to be encrypted using SHA-1 and compressed using zlib.
 
 4. Reading a tree object.
 
@@ -22,3 +31,9 @@ Implementing it is easy as the only logic is the check the cli commands entered 
 6. Creating a commit.
 
 7. Cloning a repository
+
+
+Code-Improvements:
+a. Error-Handling.
+
+b. Testing.

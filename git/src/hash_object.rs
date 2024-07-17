@@ -30,7 +30,7 @@ pub fn create_blob() {
     fs::write(&data_file, &compressed_data).unwrap_or_else(|error| {
         if error.kind() == ErrorKind::AlreadyExists {
             panic!("Such a file already exists in the file system...");
-        } else { panic!("Unable to write file..."); }
+        } else { panic!("Unable to write file...") }
     });
 }
 

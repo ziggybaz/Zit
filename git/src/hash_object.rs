@@ -2,6 +2,7 @@ extern crate flate2;
 
 use std::io::prelude::*;
 use std::{env, fs};
+use std::io::ErrorKind;
 use flate2::Compression;
 use flate2::write::ZlibEncoder;
 use sha1::{Sha1, Digest};
@@ -20,10 +21,25 @@ pub fn create_blob() {
     print!("{}", hash_hex);
 
     encoder.write_all(final_data_string.as_bytes()).unwrap();
-    let compressed_data = encoder.finish().unwrap();
+    let compressed_data = encoder.finish().expect("Encoder failed to finish data compression");
 
     let data_directory = format!(".git/objects/{:02x}", &result[0]);
     let data_file = format!("{}/{}", data_directory, &hash_hex[2..]);
+
     fs::create_dir_all(&data_directory).unwrap();
-    fs::write(&data_file, &compressed_data).unwrap();
+    fs::write(&data_file, &compressed_data).unwrap_or_else(|error| {
+        if error.kind() == ErrorKind::AlreadyExists {
+            panic!("Such a file already exists in the file system...");
+        } else { panic!("Unable to write file..."); }
+    });
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_create_blob() {
+        unimplemented!();
+    }
 }

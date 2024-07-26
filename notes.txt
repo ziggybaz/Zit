@@ -23,8 +23,12 @@ Doing it: remember git stores files using SHA-1 hash, so once you know the hash 
 3. creating a blob object.
 you use the "hash-object" plumbing cmd together with the '-w' flag which indicates tou write it to the '.git/objects/{}/{}' file.
 as mentioned above, a blob object has to be encrypted using SHA-1 and compressed using zlib.
+note that when edit a file, git doesn't alter the state of a previously stored object instead it writes a new, so when doing error-handling, include that guarg Ziggy
 
 4. Reading a tree object.
+The command in question is 'ls-tree' which is used to inspect a tree object.
+so to pass this stage all I needed to do was to return data in the following format: 'file/dirName' that's if you use the '--name-only' flag
+but I'd like to try run the full implementation where data is returned in the following format '<mode> tree <tree_sha> file/dirName', let's try it out but to pass the challenge I'll do it their way first
 
 5. Writing a tree object
 

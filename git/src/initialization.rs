@@ -18,7 +18,8 @@ mod tests {
         let head_content = fs::read_to_string(".git/HEAD").unwrap();
         init();
     
-        //should have done set-up by removing existing '.git' dir but didn't as I don't want it to delete the native one otherwise for the test case add a set-up to check for and remove existing '.git' dir.
+        //should have done set-up by removing existing '.git' dir but didn't as I don't want it to delete the native one otherwise for the test case add a set-up to check for and remove existing '.git' dir if not test itafail na
+        //hutajua mbona, do as I say.
         assert!(Path::new(git_directory).exists());
         assert!(Path::new(".git/objects").exists());
         assert!(Path::new(".git/refs").exists());

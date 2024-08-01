@@ -29,6 +29,7 @@ note that when edit a file, git doesn't alter the state of a previously stored o
 The command in question is 'ls-tree' which is used to inspect a tree object.
 so to pass this stage all I needed to do was to return data in the following format: 'file/dirName' that's if you use the '--name-only' flag
 but I'd like to try run the full implementation where data is returned in the following format '<mode> tree <tree_sha> file/dirName', let's try it out but to pass the challenge I'll do it their way first
+currently doing
 
 5. Writing a tree object
 

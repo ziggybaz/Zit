@@ -3,3 +3,5 @@
 ## to try it out just make sure you have rust && cargo
 
 `cargo run`
+
+## best way to understand git me thinks

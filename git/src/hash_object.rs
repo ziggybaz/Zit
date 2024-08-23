@@ -66,42 +66,30 @@ mod tests {
     #[test]
     fn test_read_data_from_file() {
         let temporary_file = NamedTempFile::new().expect("unable to create a temporary file, sorry...");
-				let file_path = temporary_file.path().to_str().expect("unable to set file path");
-				let test_data = "ziggy".to_string();
+	let file_path = temporary_file.path().to_str().expect("unable to set file path");
+	let test_data = "ziggy".to_string();
 
-				fs::write(file_path, test_data).expect("unable to write ziggy to test file"); 
+	fs::write(file_path, test_data).expect("unable to write ziggy to test file"); 
 
-				let function_result = read_data_from_file(file_path).expect("fauled to read data");
+	let function_result = read_data_from_file(file_path).expect("fauled to read data");
 
-				assert_eq!(function_result, test_data);
+	assert_eq!(function_result, test_data);
     }
+	
     #[test]
     fn test_compute_hash() {
         let test_data = "ziggy rocks";
-				//have to provide a hash from my test_string and don't want to , but if I generate manually does the code integrity still stand?
-				let expected_hash = "";
-				let computed_hash = compute_hash(test_data);
+	//have to provide a hash from my test_string and don't want to , but if I generate manually does the code integrity still stand?
+	let expected_hash = "";
+	let computed_hash = compute_hash(test_data);
 
-				assert_eq!(computed_hash, expected_hash);
+	assert_eq!(computed_hash, expected_hash);
     }
 
     #[test]
-		fn test_create_blob() {
-			unimplemented!();//its implementation is dependant on the existence of a .git folder, will write integration tests instead as they would handle the code better
-		}
+    fn test_create_blob() {
+	unimplemented!();//its implementation is dependant on the existence of a .git folder, will write integration tests instead as they would handle the code better
+    }
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

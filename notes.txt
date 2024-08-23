@@ -1,4 +1,4 @@
-		GIT.
+		ZiT
 Building out 'git'. This is one of the coding challenges provided by Codecrafters.
 
 Difficulty Level: I'd say beginner in terms of code complexity but it's a good project for understanding git. If you do research it takes a bit of time to complete but if you're in it just to complete the challenge then an hour or 
@@ -26,11 +26,20 @@ as mentioned above, a blob object has to be encrypted using SHA-1 and compressed
 note that when edit a file, git doesn't alter the state of a previously stored object instead it writes a new, so when doing error-handling, include that guarg Ziggy
 
 4. Reading a tree object.
-The command in question is 'ls-tree' which is used to inspect a tree object.
+The command in question is 'ls-tree' which is used to inspect a tree object. git tree objects contain the structure of directories and files at a particular commit
 so to pass this stage all I needed to do was to return data in the following format: 'file/dirName' that's if you use the '--name-only' flag
 but I'd like to try run the full implementation where data is returned in the following format '<mode> tree <tree_sha> file/dirName', let's try it out but to pass the challenge I'll do it their way first
 currently doing
 
+well initially I was planning on doing the whole git implementation but not gonna lie, this section was a brain-fuck, I kept messing up the file path i.e was failing at the first test case, reading the 
+object, was reading from '.git' instead of '.git/objects/'. was stuck on this for a good week and a half, smh, now it looks simple but I almost cried.
+
+once you've read the *correct object, you have to decompress the said object remember git uses the sha-1 encoding, easy bit, have done this a few times now and its code is in the zlib docs.
+finally, you have to parse the tree entries. the decompressed data is parsed to extract file modes, names and sha-1 hashes, achieved by iterating through the said entries and only at the end printing what 
+is required by '--names-only'.
+
+final complex bit was the iteration,(iterating over the bytes in the decompressed tree)
+ 
 5. Writing a tree object
 
 6. Creating a commit.
@@ -42,3 +51,6 @@ Code-Improvements:
 a. Error-Handling.
 
 b. Testing.
+
+c. Refactoring-issues.
+What about using an iterator to make the code cleaner instead of reading from string vector? 

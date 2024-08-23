@@ -13,6 +13,7 @@ fn main() {
         },
         Command::CatFile => cat_file::read_blob(),
         Command::HashObject => hash_object::create_blob(),
+				Command::LsTree => ls_tree::read_tree(),
         Command::Invalid(cmd) => println!("Argument NOT supported: {cmd}"),
     }
 }
@@ -21,6 +22,7 @@ enum Command {
     Init,
     CatFile,
     HashObject,
+		LsTree,
     Invalid(String),
 }
 
@@ -30,6 +32,7 @@ impl Command {
             [_, cmd] if cmd == "init" => Command::Init,
             [_, cmd, ..] if cmd == "cat-file" => Command::CatFile,
             [_, cmd, option, ..] if cmd == "hash-object" && option == "-w" => Command::HashObject,
+						[_, cmd, option, ..] if cmd == "ls-tree"  && option == "--name-only" => Command::LsTree,
             _ => Command::Invalid("".to_string()),
         }
     }

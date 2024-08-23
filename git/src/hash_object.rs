@@ -55,6 +55,8 @@ fn store_data_in_object_store(hash_hex: &str, compressed_data: &[u8]) {
 #[cfg(test)]
 mod tests {
     use super::*;
+		use tempfile::{ tempdir, NamedTempFile };
+		use std::io::ErrorKind;
 
     #[test]
     fn test_create_blob() {
@@ -63,17 +65,32 @@ mod tests {
 
     #[test]
     fn test_read_data_from_file() {
-        unimplemented!();
+        let temporary_file = NamedTempFile::new().expect("unable to create a temporary file, sorry...");
+				let file_path = temporary_file.path().to_str().expect("unable to set file path");
+				let test_data = "ziggy".to_string();
+
+				fs::write(file_path, test_data).expect("unable to write ziggy to test file"); 
+
+				let function_result = read_data_from_file(file_path).expect("fauled to read data");
+
+				assert_eq!(function_result, test_data);
     }
     #[test]
     fn test_compute_hash() {
-        unimplemented!();
+        let test_data = "ziggy rocks";
+				//have to provide a hash from my test_string and don't want to , but if I generate manually does the code integrity still stand?
+				let expected_hash = "";
+				let computed_hash = compute_hash(test_data);
+
+				assert_eq!(computed_hash, expected_hash);
     }
 
     #[test]
-    fn test_store_data_in_object_store() {
-        unimplemented!();
-    }
+		fn test_create_blob() {
+			unimplemented!();//its implementation is dependant on the existence of a .git folder, will write integration tests instead as they would handle the code better
+		}
+
+
 }
 
 

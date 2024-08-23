@@ -24,18 +24,21 @@ fn decompress_data(obj: &Vec<u8>) {
     print!("{}", &s[8..]);
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
 
-    #[test]
-    fn test_read_blob() {
-        unimplemented!();
-    }
+//integration tests would offer better insight into implementation performance, anyway it passed the codecrafters tests, lol
 
-    #[test]
-    fn test_decopressed_data() {
-        unimplemented!();
-    }
 
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

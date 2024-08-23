@@ -1,3 +1,4 @@
+use std::io::ErrorKind;
 use std::io::prelude::*;
 use std::io::Cursor;
 use flate2::read::ZlibDecoder;
@@ -12,7 +13,11 @@ pub fn read_tree(){
 		//this line saved me a week of frustration.
 		eprintln!("File path problem: reading tree object from `{}`", tree_object_path);
 
-		let tree_object = fs::read(&tree_object_path).unwrap();
+		let tree_object = fs::read(&tree_object_path).unwrap_or_else(|error| {
+			if error.kind() == ErrorKind::NotFound {
+				panic!("File not present mate!!!")
+			} else { panic!("UNable to read data from the file...") }
+		});
 
 		let decompressed_tree = match decode(&tree_object[..]) {
 			Ok(data) => data,
@@ -22,19 +27,19 @@ pub fn read_tree(){
 			}
 		};
 
-		let mut index = decompressed_tree.iter().position(|&x| x == 0).unwrap() + 1;
+		let mut index = decompressed_tree.iter().position(|&x| x == 0).expect("unable to iterate over the decompressed tree binary data") + 1;
 		while index < decompressed_tree.len() {
-			let space_index = decompressed_tree[index..].iter().position(|&x| x == b' ').unwrap();
-			let null_byte_index = decompressed_tree[index + space_index..]
+			let space_character_index = decompressed_tree[index..].iter().position(|&x| x == b' ').expect("unable to iterate over the space character");
+			let null_byte_index = decompressed_tree[index + space_character_index..]
 			.iter()
 			.position(|&x| x == 0)
 			.unwrap();
 
-			let name = &decompressed_tree[index + space_index + 1..index + space_index + null_byte_index];
+			let name = &decompressed_tree[index + space_character_index + 1..index + space_character_index + null_byte_index];
 
 			println!("{}", String::from_utf8_lossy(name));
 
-			index += space_index + null_byte_index + 23;
+			index += space_character_index + null_byte_index + 23;
 		} 
 }
 
@@ -45,12 +50,12 @@ fn decode(data: &[u8]) -> Result<Vec<u8>, std::io::Error> {
 		Ok(decompressed_data)
 }
 
-#[cfg(test)]
-mod tests {
-		use super::*;
 
-		#[test]
-		fn read_tree(){
-			unimplemented!();
-		}
-}
+
+
+
+
+
+
+
+

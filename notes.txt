@@ -41,8 +41,8 @@ is required by '--names-only'.
 final complex bit was the iteration,(iterating over the bytes in the decompressed tree)
  
 5. Writing a tree object
-
-6. Creating a commit.
+*****this had to be the hardest part hands down, took a while but was able to finish
+6. Creating a commit tree.
 
 7. Cloning a repository
 

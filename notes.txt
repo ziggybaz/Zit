@@ -1,8 +1,7 @@
 		ZiT
 Building out 'git'. This is one of the coding challenges provided by Codecrafters.
 
-Difficulty Level: I'd say beginner in terms of code complexity but it's a good project for understanding git. If you do research it takes a bit of time to complete but if you're in it just to complete the challenge then an hour or 
-two is enough.
+Difficulty Level: I'd say advanced in terms of code complexity but it's a good project for understanding git. If you do research it takes a bit of time to complete but if you're in it just to complete the challenge then i don't know how it will take, i've seen 10x devs online say they did it in a few hours. OOHH to be a 10xer but alas we mortals take too long.
 
 It has 7 steps:
 1. Initializing the '.git' directory.
@@ -42,6 +41,12 @@ final complex bit was the iteration,(iterating over the bytes in the decompresse
  
 5. Writing a tree object
 *****this had to be the hardest part hands down, took a while but was able to finish
+made me do a lot of reading but issoarait.
+so, 'git write-tree' is used to create a tree object(i.e how git organizes files and stores them in a repo) from the current index whatever that means and prints the name of the tree to stdout.
+the guy who gave this answer on stackoverflow is a Chad: https://stackoverflow.com/questions/72128688/how-git-write-tree-works-internally
+so to my very basic understanding, write-tree, (finds the current folder, checks the contents of the current folder while ignoring special folders ".git", then for each file creates an ID and saves the
+said ID, while for each folder it also does the same then stores the ID's safely on disk in a compressed format)
+
 6. Creating a commit tree.
 
 7. Cloning a repository
@@ -49,8 +54,32 @@ final complex bit was the iteration,(iterating over the bytes in the decompresse
 
 Code-Improvements:
 a. Error-Handling.
+on Rust forums you see programmers talk of how they loathe 'expect()' and I never quite understood what the fuss was all about till this project, I freaking hate them.
 
 b. Testing.
+unit tests though doable required a lot of work arounds, the best tests for this project as I've come to find out is integration tests.
 
 c. Refactoring-issues.
-What about using an iterator to make the code cleaner instead of reading from string vector? 
+What about using an iterator to make the code cleaner instead of reading from string vector? **this project has been active for a while I don't even remember what this was for.
+
+Detour.(with a time constraint).
+    
+Just as with any software project, I'll have to take a small detour before I get to the final destination, which is still a functioning minimal version control system.
+so what stops are we making on our detour? well the following have been added:
+
+based on a quick read and just saw these porcelain functions require plumbing functions, they aren't stand alone.
+
+8. Staging files (add && commit, obviously 2 different functions)
+'git add' is dependant on the following plumbing commands ('update-index', 'cat-file'{implemented already}, 'hash-object'{implemented already}, 'ls-files'{implemented}, 'write-tree'{implemented})
+'git commit' ('write-tree'{implemented}, 'cat-file'{implemented}, 'hash-object'{implemented}, 'update-ref')
+
+9. Create branches.
+'git branch' ('update-ref', 'show-ref', 'for-each-ref', 'symbolic-ref', 'reflog', 'cat-file'{implemented}).
+
+10. Merge branches.
+'git merge' ('merge-base', 'cat-file'{implemented}, 'ls-tree'{implemented}, 'read-tree'{implemented}, 'update-index', 'commit-tree', 'update-ref').
+
+11. 'diff' branches.
+'git diff' ('cat-file'{implemented}, 'ls-tree'{implemented}, 'diff-index', 'hash-object'{implemented}, 'update-index', 'read-tree'{implemented}).
+
+12. conflict detection

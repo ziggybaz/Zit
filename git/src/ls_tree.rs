@@ -50,12 +50,32 @@ fn decode(data: &[u8]) -> Result<Vec<u8>, std::io::Error> {
 		Ok(decompressed_data)
 }
 
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use flate2::write::ZlibEncoder;
+    use tempfile::NamedTempFile;
+    use flate2::Compression;
+    use std::io::Write;
+    use std::fs::write;
 
+    #[test]
+    fn test_decode() {
+        let test_data = b"Gachagua impeached";
 
+        let mut encoder = ZlibEncoder::new(Vec::new(), Compression::default());
+        encoder.write_all(test_data).expect("shiezer, failed to encode");
+        let compressed_data = encoder.finish().expect("shiezer, failed to encode");
 
+        //so this is where we test if the dang decoder works as we've just encoded above.
+        let decoded_data = decode(&compressed_data).expect("tired of this expects");
 
+        // moment of trurh
+        assert_eq!(decoded_data, test_data);
+    }
 
-
-
-
-
+    #[test]
+    fn test_read_tree() { // a real pain to try and test using unit
+        unimplemented!()
+    }
+}
